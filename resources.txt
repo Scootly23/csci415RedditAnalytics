@@ -1,0 +1,3 @@
+https://github.com/jReddit/jReddit
+http://stackoverflow.com/questions/28955541/how-to-get-access-token-reddit-api
+https://github.com/reddit/reddit/wiki/API

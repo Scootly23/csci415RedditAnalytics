@@ -1,5 +1,5 @@
 import java.io.BufferedReader;
-import java.io.IOException;
+on-20131018.jarmport java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -33,8 +33,15 @@ class JsonReader {
   }
 
   public static void main(String[] args) throws IOException, JSONException {
-    JSONObject json = readJsonFromUrl("https://www.reddit.com/r/FlashTV/.json?search?q=timestamp%3A1409544241..1417406641&sort=new&restrict_sr=on&syntax=cloudsearch");
-    System.out.println(json.toString());
-    System.out.println(json.get("id"));
+    ArrayList<JSONObject> files = new ArrayList<JSONObject>();
+    long electionDay = 1478476800;
+    long firstTimestamp = 1462579200;
+    long tempTimestamp = electionDay;
+    while(firstTimestamp <= tempTimestamp) {
+	JSONObject json = readJsonFromUrl("https://www.reddit.com/r/politics/search.json?sort=new&restrict_sr=on&limit=100&q=timestamp:"+firstTimestamp+".."+tempTimestamp+"&syntax=cloudsearch");
+	files.add(json);
+	System.out.println(json.toString());
+	System.out.println(json.get("id"));
+    }
   }
 }
