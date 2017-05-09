@@ -14,6 +14,9 @@ preElection: redditAnalytics.java redditAnalyticsMapper.java redditAnalyticsRedu
 	hadoop jar redditAnalytics.jar redditAnalytics /user/micaschm/preOutput.txt redditAnalytics/output
 	hdfs dfs -cat redditAnalytics/output/part-r-00000 | less
 
+jsonParser: jsonParser.java
+	javac -classpath ./org/json/java-json.jar jsonParser.java
+	java jsonParser
 
 clean:
 	rm -rf redditAnalytics
