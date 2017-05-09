@@ -1,17 +1,22 @@
-import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.fs.*;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
-import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.util.*;
+import org.apache.hadoop.conf.*;
+import org.apache.hadoop.mapreduce.*;
+import org.apache.hadoop.mapreduce.filecache.*;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 public class redditAnalytics{
 
 	public static void main(String[] args) throws Exception{
-		if(args.length != 2) {
+		if(args.length < 0) {
 			System.err.println("Usage: redditAnalytics <input path> <output path>");
 			System.exit(-1);
 		}
+		
+		final Configuration config = new Configuration();		
 		Job job = new Job();
 
 		job.setJarByClass(redditAnalytics.class);
