@@ -10,7 +10,7 @@ import java.io.*;
             String str = new String();
 	    FileReader fs = new FileReader("preelection.json");
 	    Scanner file = new Scanner(fs);
-	    PrintWriter out = new PrintWriter("output.txt");
+	    PrintWriter out = new PrintWriter("preOutput.txt");
 	try{
 	   while(file.hasNextLine()){
 	     str += file.nextLine();

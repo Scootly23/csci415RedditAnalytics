@@ -16,10 +16,12 @@ import org.apache.hadoop.util.GenericOptionsParser;
 import java.util.*;
 import org.apache.hadoop.io.LongWritable;
 
-public class redditAnalyticsReducer extends Reducer<Text,LongWritable,Text,IntWritable>{
-private TreeMap<LongWritable, Text> dataToRecordMap = new TreeMap<LongWritable,Text>();
-	private Text outAddress = new Text();
+public class redditAnalyticsReducer extends Reducer<Text,LongWritable,Text,LongWritable>{
+	
+	private TreeMap<LongWritable, Text> dataToRecordMap = new TreeMap<LongWritable,Text>();
 
+	private Text outAddress = new Text();
+	
 	public void reduce(Text key, Iterable<LongWritable> values, Context context) throws IOException, InterruptedException{
 		int total = 0;
 		System.out.println("I'm here");
@@ -29,8 +31,18 @@ private TreeMap<LongWritable, Text> dataToRecordMap = new TreeMap<LongWritable,T
 		for( LongWritable value : values){
 			total++;
 		}
-		i1.set(total);
-		context.write(key,i1);
+		k1.set(total);
+		dataToRecordMap.put(k1, new Text(key));
+		
+	//	context.write(key,k1);
 
 	}
+	
+	protected void cleanup(Context context) throws IOException, InterruptedException{
+		for(Map.Entry<LongWritable,Text> entry : dataToRecordMap.entrySet()){
+			LongWritable key = entry.getKey();
+			Text l = entry.getValue();
+			context.write(l, key);
+		}
 	}
+}
